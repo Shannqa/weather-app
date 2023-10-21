@@ -5,7 +5,15 @@ const apiKey = config.API_KEY;
 
 console.log("aaa");
 let currentCity = "Warsaw";
-let currentWeather = {}
+let currentWeather = {
+  city: "",
+  time: "",
+  country: "",
+  tempC: "",
+  tempF: "",
+  condition: ""
+}
+
 let futureWeather = {}
 
 async function getWeather(city) {
@@ -29,4 +37,36 @@ function getCurrent(city) {
   });
 }
 
-getCurrent(currentCity);
+
+
+function createDom() {
+  const body = document.querySelector("body");
+  const cityName = document.createElement("div");
+  const temp = document.createElement("div");
+  const time = document.createElement("div");
+  
+  cityName.classList.add("city-name");
+  temp.classList.add("temperature");
+  time.classList.add("time");
+  
+  body.appendChild(cityName);
+  body.appendChild(temp);
+  body.appendChild(time);
+}
+
+function fillDom() {
+  const cityName = document.querySelector(".city-name");
+  const temp = document.querySelector(".temperature");
+  const time = document.querySelector(".time");
+  
+  cityName.textContent = currentWeather.city;
+}
+
+async function setCity() {
+  const fetchData = await getCurrent(currentCity);
+  fillDom();
+  console.log(currentWeather);
+}
+
+createDom();
+setCity();
