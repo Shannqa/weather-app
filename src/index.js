@@ -4,6 +4,7 @@ import config from "../config.js";
 const apiKey = config.API_KEY;
 
 console.log("aaa");
+let newCity = "";
 let currentCity = "Warsaw";
 let currentWeather = {
   city: "",
@@ -33,14 +34,17 @@ function getCurrent(city) {
     tempF: data.current.temp_f,
     condition: data.current.condition.text
     }
+    fillDom();
     console.log(currentWeather.city);
   });
 }
 
-
-
 function createDom() {
   const body = document.querySelector("body");
+  const top = document.createElement("div");
+  const inputBox = document.createElement("input");
+  const inputBtn = document.createElement("button");
+ 
   const cityName = document.createElement("div");
   const temp = document.createElement("div");
   const time = document.createElement("div");
@@ -48,25 +52,79 @@ function createDom() {
   cityName.classList.add("city-name");
   temp.classList.add("temperature");
   time.classList.add("time");
+  inputBox.classList.add("input-box");
+  inputBtn.classList.add("input-btn");
   
-  body.appendChild(cityName);
-  body.appendChild(temp);
-  body.appendChild(time);
+  inputBox.setAttribute("id", "input");
+  inputBtn.setAttribute("for", "input");
+  
+  inputBtn.textContent = "OK";
+  
+  inputBtn.addEventListener("click", () => {
+    newCity = inputBox.value;
+    console.log(newCity);
+    getCurrent(newCity);
+    inputBox.value = "";
+  });
+  
+  top.appendChild(inputBox);
+  top.appendChild(inputBtn);
+  top.appendChild(temp);
+  top.appendChild(cityName);
+  top.appendChild(time);
+  body.appendChild(top);
 }
 
 function fillDom() {
-  const cityName = document.querySelector(".city-name");
+ const cityName = document.querySelector(".city-name");
   const temp = document.querySelector(".temperature");
   const time = document.querySelector(".time");
   
   cityName.textContent = currentWeather.city;
+  temp.textContent = currentWeather.tempC + " °C";
+  time.textContent = currentWeather.time;
 }
 
-async function setCity() {
+/*async function setCity() {
   const fetchData = await getCurrent(currentCity);
   fillDom();
   console.log(currentWeather);
-}
+}*/
 
 createDom();
-setCity();
+getCurrent(currentCity);
+
+function getDate() {
+  let newDate = new Date("2023-10-22 0:41");
+  
+  const date = newDate.getDate() + "." + newDate.getMonth() + "." + newDate.getFullYear();
+  const time = newDate.getHours() + ":" + newDate.getMinutes();
+  console.log(date);
+  console.log(time);
+}
+
+getDate();
+
+/*
+Future weather - 3 days
+3 columns, each of them having
+day
+temp
+temp at night?
+condition
+img of condition
+rain chance?
+*/
+
+/* 
+input city name
+input field and ok button
+once user clicks ok/presses enter, change the following:
+newCity = entered value
+fetch from api - current weather and future weather
+in case of error: show a message to try again. different error when the city doesnt exist, different in case of a network error
+in case it works:
+currentCity = newCity
+fill the dom with fetched values
+
+*/
