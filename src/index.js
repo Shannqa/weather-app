@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../config";
 import "./style.css";
 
 const apiKey = config.API_KEY;
@@ -115,6 +115,35 @@ function createDom() {
   const top = document.createElement("div");
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
+  const daysView = document.createElement("div");
+
+  for (let i = 0; i < 3; i++) {
+    const dayDiv = document.createElement("div");
+    const dayName = document.createElement("div");
+    const conditionDiv = document.createElement("div");
+    const conditionIcon = new Image();
+    const maxT = document.createElement("div");
+    const minT = document.createElement("div");
+    const chanceRain = document.createElement("div");
+
+    daysView.classList.add("days-view");
+    dayDiv.setAttribute("id", `day${i}`);
+    dayDiv.classList.add("day-div");
+    dayName.classList.add("day-name");
+    conditionDiv.classList.add("condition-div");
+    conditionIcon.classList.add("condition-icon");
+    maxT.classList.add("max-temp");
+    minT.classList.add("min-temp");
+    chanceRain.classList.add("chance-rain");
+
+    dayDiv.appendChild(dayName);
+    conditionDiv.appendChild(conditionIcon);
+    dayDiv.appendChild(conditionDiv);
+    dayDiv.appendChild(maxT);
+    dayDiv.appendChild(minT);
+    dayDiv.appendChild(chanceRain);
+    daysView.appendChild(dayDiv);
+  }
 
   const cityName = document.createElement("div");
   const temp = document.createElement("div");
@@ -144,16 +173,39 @@ function createDom() {
   top.appendChild(cityName);
   top.appendChild(time);
   body.appendChild(top);
+  body.appendChild(daysView);
 }
 
 function fillDom() {
   const cityName = document.querySelector(".city-name");
   const temp = document.querySelector(".temperature");
   const time = document.querySelector(".time");
+  const daysView = document.querySelector(".days-view");
+  // const dayDiv = document.querySelector(".day-div");
+  // const conditionDiv = document.querySelector(".condition-div");
+  // const maxT = document.querySelector(".max-temp");
+  // const minT = document.querySelector(".min-temp");
+  // const day0 = document.querySelector("#day0");
+  // const day1 = document.querySelector("#day1");
+  // const day2 = document.querySelector("#day2");
 
   cityName.textContent = currentWeather.city;
   temp.textContent = currentWeather.tempC + " °C";
   time.textContent = currentWeather.time;
+
+  // weather forecast for 3 days - fill with fetched data
+  for (let i = 0; i < 3; i++) {
+    const day = document.querySelector(`#day${i}`);
+    const maxT = document.querySelector(`#day${i} .max-temp`);
+    const minT = document.querySelector(`#day${i} .min-temp`);
+    const conditionIcon = document.querySelector(`#day${i} .condition-icon`);
+    const chanceRain = document.querySelector(`#day${i} .chance-rain`);
+
+    conditionIcon.src = "https:" + futureWeather[i].condition_icon;
+    maxT.textContent = futureWeather[i].maxtemp_c;
+    minT.textContent = futureWeather[i].mintemp_c;
+    chanceRain.textContent = futureWeather[i].daily_chance_of_rain + "%";
+  }
 }
 
 createDom();
