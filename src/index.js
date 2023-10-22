@@ -1,11 +1,16 @@
-import config from "../config";
-import "./style.css";
-
+import config from "../config.js";
+//import "./style.css";
+//import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+// phone variables, comment them out on pc
+const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
+const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 const apiKey = config.API_KEY;
 
 console.log("aaa");
 let newCity = "";
 let currentCity = "Warsaw";
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let currentWeather = {
   city: "",
   time: "",
@@ -125,7 +130,19 @@ function createDom() {
     const maxT = document.createElement("div");
     const minT = document.createElement("div");
     const chanceRain = document.createElement("div");
+    const chanceRainText = document.createElement("span");
+    const chanceRainIcon = new Image();
+    chanceRainIcon.src = drop;
 
+    const sunrise = document.createElement("div");
+    const sunriseIcon = new Image();
+    sunriseIcon.src = sun0;
+    const sunriseText = document.createElement("span");
+    const sunset = document.createElement("div");
+    const sunsetIcon = new Image();
+    sunsetIcon.src = sun1;
+    const sunsetText = document.createElement("span");
+    
     daysView.classList.add("days-view");
     dayDiv.setAttribute("id", `day${i}`);
     dayDiv.classList.add("day-div");
@@ -135,13 +152,24 @@ function createDom() {
     maxT.classList.add("max-temp");
     minT.classList.add("min-temp");
     chanceRain.classList.add("chance-rain");
+    sunrise.classList.add("sunrise");
+    sunset.classList.add("sunset");
+
 
     dayDiv.appendChild(dayName);
     conditionDiv.appendChild(conditionIcon);
     dayDiv.appendChild(conditionDiv);
     dayDiv.appendChild(maxT);
     dayDiv.appendChild(minT);
+    chanceRain.appendChild(chanceRainIcon);
+    chanceRain.appendChild(chanceRainText);
     dayDiv.appendChild(chanceRain);
+    sunrise.appendChild(sunriseIcon);
+    sunrise.appendChild(sunriseText);
+    dayDiv.appendChild(sunrise);
+    sunset.appendChild(sunsetIcon);
+    sunset.appendChild(sunsetText);
+    dayDiv.appendChild(sunset);
     daysView.appendChild(dayDiv);
   }
 
@@ -181,13 +209,7 @@ function fillDom() {
   const temp = document.querySelector(".temperature");
   const time = document.querySelector(".time");
   const daysView = document.querySelector(".days-view");
-  // const dayDiv = document.querySelector(".day-div");
-  // const conditionDiv = document.querySelector(".condition-div");
-  // const maxT = document.querySelector(".max-temp");
-  // const minT = document.querySelector(".min-temp");
-  // const day0 = document.querySelector("#day0");
-  // const day1 = document.querySelector("#day1");
-  // const day2 = document.querySelector("#day2");
+
 
   cityName.textContent = currentWeather.city;
   temp.textContent = currentWeather.tempC + " °C";
@@ -196,15 +218,28 @@ function fillDom() {
   // weather forecast for 3 days - fill with fetched data
   for (let i = 0; i < 3; i++) {
     const day = document.querySelector(`#day${i}`);
+    const dayName = document.querySelector(`#day${i} .day-name`);
     const maxT = document.querySelector(`#day${i} .max-temp`);
     const minT = document.querySelector(`#day${i} .min-temp`);
     const conditionIcon = document.querySelector(`#day${i} .condition-icon`);
-    const chanceRain = document.querySelector(`#day${i} .chance-rain`);
+    const chanceRainText = document.querySelector(`#day${i} .chance-rain span`);
+    const sunriseText = document.querySelector(`#day${i} .sunrise span`);
+    const sunsetText = document.querySelector(`#day${i} .sunset span`);
+
+    if (i === 0) {
+      dayName.textContent = "Today";
+    } else {
+      const dayNum = new Date(`${futureWeather[i].date}`).getDay();
+      dayName.textContent = weekdays[dayNum];
+    }
 
     conditionIcon.src = "https:" + futureWeather[i].condition_icon;
-    maxT.textContent = futureWeather[i].maxtemp_c;
-    minT.textContent = futureWeather[i].mintemp_c;
-    chanceRain.textContent = futureWeather[i].daily_chance_of_rain + "%";
+    maxT.textContent = futureWeather[i].maxtemp_c + " °C";
+    minT.textContent = futureWeather[i].mintemp_c + " °C";
+    chanceRainText.textContent = futureWeather[i].daily_chance_of_rain + "%";
+    sunriseText.textContent = futureWeather[i].sunrise;
+    sunsetText.textContent = futureWeather[i].sunset;
+
   }
 }
 
