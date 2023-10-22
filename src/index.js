@@ -18,25 +18,27 @@ let currentWeather = {
 let futureWeather = {}
 
 async function getWeather(city) {
-  const response = await fetch("http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);
-  const data = await response.json();
-  return data;
-  //console.log(data);
-}
-
-function getCurrent(city) {
-  getWeather(city).then((data) => {
-    currentWeather = {
-    city: data.location.name,
-    time: data.location.localtime,
-    country: data.location.country,
-    tempC: data.current.temp_c,
-    tempF: data.current.temp_f,
-    condition: data.current.condition.text
+  try {
+    const response = await fetch("http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);
+    if (response.status === 200) {
+      const data = await response.json();
+      //console.log(data);
+      currentWeather = {
+        city: data.location.name,
+        time: data.location.localtime,
+        country: data.location.country,
+        tempC: data.current.temp_c,
+        tempF: data.current.temp_f,
+        condition: data.current.condition.text
+      }
+      fillDom();
+    } else {
+      throw new Error(response.status + " " + response.statusText);
     }
-    fillDom();
-    console.log(currentWeather.city);
-  });
+  } catch (err) {
+    console.log(err.message);
+  }
+  //console.log(data);
 }
 
 function createDom() {
@@ -63,7 +65,7 @@ function createDom() {
   inputBtn.addEventListener("click", () => {
     newCity = inputBox.value;
     console.log(newCity);
-    getCurrent(newCity);
+    getWeather(newCity);
     inputBox.value = "";
   });
   
@@ -92,7 +94,7 @@ function fillDom() {
 }*/
 
 createDom();
-getCurrent(currentCity);
+getWeather(currentCity);
 
 function getDate() {
   let newDate = new Date("2023-10-22 0:41");
