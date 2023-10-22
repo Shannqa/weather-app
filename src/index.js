@@ -19,10 +19,16 @@ let futureWeather = {}
 
 async function getWeather(city) {
   try {
-    const response = await fetch("http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);
-    if (response.status === 200) {
-      const data = await response.json();
-      //console.log(data);
+    //const current = fetch("http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);
+    const forecast = await fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey + "&q=" + city + "&days=14");
+    //const response = await Promise.all([current, forecast]);
+   // console.log(response[0].status + response[1].status);
+    if (forecast.status === 200) {
+      const data = await forecast.json();
+     // const data = await Promise.all([response[0].json(), response[1].json()]);
+   //   console.log(data[0]);
+   //   console.log(data[1]);
+   console.log(data);
       currentWeather = {
         city: data.location.name,
         time: data.location.localtime,
@@ -31,6 +37,7 @@ async function getWeather(city) {
         tempF: data.current.temp_f,
         condition: data.current.condition.text
       }
+      
       fillDom();
     } else {
       throw new Error(response.status + " " + response.statusText);
