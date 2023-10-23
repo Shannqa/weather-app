@@ -204,6 +204,8 @@ function createDom() {
   error.textContent = "Error";
 
   currentView.classList.add("current-view");
+  currentLeft.classList.add("current-left");
+  currentRight.classList.add("current-right");
   currConIcon.classList.add("curr-con-icon");
   today.classList.add("today");
   localTime.classList.add("local-time");

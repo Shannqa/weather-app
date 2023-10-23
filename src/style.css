@@ -6,6 +6,9 @@
 
 body {
   background: lightblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -14,16 +17,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 4px;
-/*  display: grid;
-  grid-template-columns: fit-content;
-  grid-template-rows: 1fr 1fr;
-  margin-right: 6px;
-  justify-items: end;
-  
-  display: grid;
-  grid-template-areas: "label input button"
-  "error error error";
-    justify-items: center;*/
 }
 
 .top-left div {
@@ -50,6 +43,7 @@ body {
 
 .err-active {
   display: block !important;
+  position: absolute;
 }
 
 .current-view {
@@ -57,6 +51,19 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: 12px 6px;
+  font-size: 1.2rem;
+}
+
+.current-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.current-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .temperature {
@@ -64,7 +71,7 @@ body {
 }
 
 .city-name {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: bold;
 }
 
@@ -72,6 +79,8 @@ body {
 
 .days-view {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .day-div {
@@ -88,27 +97,13 @@ body {
 
 .day-name {
   font-weight: bold;
-  
+  font-size: 1.4rem;
+  margin: 8px;
 }
-
-.chance-rain span {
-  font-size: 0.8rem;
-
-}
-
-.chance-rain img {
-  position: relative;
-  top: 4px;
-}
-
-.sunrise span,
-.sunset span {
-  font-size: 0.8rem;
-}
-.sunrise img,
-.sunset img {
-  position: relative;
-  top: 5px;
+.max-temp,
+.min-temp {
+  font-size: 1.2rem;
+  margin: 8px;
 }
 
 .max-temp img {
@@ -119,4 +114,80 @@ body {
 .min-temp img {
   position: relative;
   top: 3px;
+}
+
+.chance-rain {
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.chance-rain span {
+  font-size: 1rem;
+
+}
+
+.chance-rain img {
+  position: relative;
+  top: 4px;
+  right: 2px;
+}
+
+.sunrise,
+.sunset {
+  margin-bottom: 4px;
+}
+
+.sunrise span,
+.sunset span {
+  font-size: 1rem;
+}
+
+.sunrise img,
+.sunset img {
+  position: relative;
+  top: 5px;
+  right: 2px;
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .top, 
+  .current-view {
+    min-width: 400px;
+    width: 100vw;
+  }
+  /* .current-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .top, 
+  .current-view {
+    width: 600px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .top, 
+  .current-view {
+    width: 700px;
+  }
+  
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }
