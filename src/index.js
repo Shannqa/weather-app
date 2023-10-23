@@ -66,6 +66,8 @@ let futureWeather = [
 ];
 
 async function getWeather(city) {
+  const errorMsg = document.querySelector(".error");
+
   try {
     const forecast = await fetch(
       "http://api.weatherapi.com/v1/forecast.json?key=" +
@@ -103,13 +105,19 @@ async function getWeather(city) {
         futureWeather[i].mintemp_c = data.forecast.forecastday[i].day.mintemp_c;
         futureWeather[i].mintemp_f = data.forecast.forecastday[i].day.mintemp_f;
       }
+      errorMsg.classList.remove("err-active");
+
       console.log(futureWeather[0]);
 
       fillDom();
     } else {
+      errorMsg.classList.add("err-active");
       throw new Error(response.status + " " + response.statusText);
     }
   } catch (err) {
+    errorMsg.textContent = "Error, please try again";
+
+    errorMsg.classList.add("err-active");
     console.log(err.message);
   }
   // console.log(data);
@@ -118,9 +126,13 @@ async function getWeather(city) {
 function createDom() {
   const body = document.querySelector("body");
   const top = document.createElement("div");
+  const topLeft = document.createElement("div");
+  const topRight = document.createElement("div");
+
   const inputLabel = document.createElement("label");
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
+  const error = document.createElement("div");
   
   // today's forecast elements
   const currentView = document.createElement("div");
@@ -133,8 +145,9 @@ function createDom() {
    const cityName = document.createElement("div");
   const temp = document.createElement("div");
   
-  top.classList.add("top")
-    inputBox.classList.add("input-box");
+  top.classList.add("top");
+  topRight.classList.add("top-right");
+  inputBox.classList.add("input-box");
   inputBtn.classList.add("input-btn");
   inputBox.setAttribute("id", "input");
   inputBox.setAttribute("placeholder", "Enter city name");
@@ -148,6 +161,8 @@ function createDom() {
     getWeather(newCity);
     inputBox.value = "";
   });
+  error.classList.add("error");
+  error.textContent = "Error";
   
   currentView.classList.add("current-view");
   today.classList.add("today");
@@ -206,9 +221,14 @@ function createDom() {
     daysView.appendChild(dayDiv);
   }
 
-  top.appendChild(inputLabel);
-  top.appendChild(inputBox);
-  top.appendChild(inputBtn);
+  
+  topRight.appendChild(inputLabel);
+  topRight.appendChild(inputBox);
+  topRight.appendChild(inputBtn);
+  topRight.appendChild(error);
+  top.appendChild(topLeft);
+  top.appendChild(topRight);
+
 
   currentLeft.appendChild(cityName);
   currentLeft.appendChild(today);
@@ -228,7 +248,6 @@ function fillDom() {
   const temp = document.querySelector(".temperature");
   const today = document.querySelector(".today");
   const localTime = document.querySelector(".local-time");
-
 
   const todayWeek = new Date(`${currentWeather.time}`);
   // month - from 0 to 11, so need to add +1

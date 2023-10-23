@@ -8,11 +8,20 @@ body {
   background: lightblue;
 }
 
+
 .top {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-between;
+/*  display: grid;
+  grid-template-columns: fit-content;
+  grid-template-rows: 1fr 1fr;
   margin-right: 6px;
+  justify-items: end;
+  
+  display: grid;
+  grid-template-areas: "label input button"
+  "error error error";
+    justify-items: center;*/
 }
 
 .input-box {
@@ -25,6 +34,16 @@ body {
   width: 30px;
   height: 24px;
   margin: 4px;
+}
+
+.error {
+  background-color: palevioletred;
+  grid-area: "error";
+  display: none;
+}
+
+.err-active {
+  display: block !important;
 }
 
 .current-view {
@@ -83,3 +102,4 @@ body {
   position: relative;
   top: 5px;
 }
+
