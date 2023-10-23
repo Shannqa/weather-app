@@ -4,6 +4,17 @@
   padding: 0px;
 }
 
+body {
+  background: lightblue;
+}
+
+.top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 6px;
+}
+
 .input-box {
   width: 120px;
   height: 24px;
@@ -14,6 +25,12 @@
   width: 30px;
   height: 24px;
   margin: 4px;
+}
+
+.current-view {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .temperature {
@@ -31,7 +48,7 @@
 }
 
 .day-div {
-  background-color: aquamarine;
+  background-color: rgba(255, 255, 255, 0.2);
   width: 200px;
   height: 400px;
   border: 1px black solid;

@@ -118,10 +118,45 @@ async function getWeather(city) {
 function createDom() {
   const body = document.querySelector("body");
   const top = document.createElement("div");
+  const inputLabel = document.createElement("label");
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
-  const daysView = document.createElement("div");
+  
+  // today's forecast elements
+  const currentView = document.createElement("div");
+  const currentLeft = document.createElement("div");
+    const currentRight = document.createElement("div");
 
+  const dayTime = document.createElement("div");
+  const today = document.createElement("div");
+  const localTime = document.createElement("div");
+   const cityName = document.createElement("div");
+  const temp = document.createElement("div");
+  
+  top.classList.add("top")
+    inputBox.classList.add("input-box");
+  inputBtn.classList.add("input-btn");
+  inputBox.setAttribute("id", "input");
+  inputBox.setAttribute("placeholder", "Enter city name");
+  inputBtn.setAttribute("for", "input");
+  inputLabel.setAttribute("for", "input");
+  inputLabel.textContent = "Search:";
+  inputBtn.textContent = "OK";
+  inputBtn.addEventListener("click", () => {
+    newCity = inputBox.value;
+    console.log(newCity);
+    getWeather(newCity);
+    inputBox.value = "";
+  });
+  
+  currentView.classList.add("current-view");
+  today.classList.add("today");
+  localTime.classList.add("local-time");
+  cityName.classList.add("city-name");
+  temp.classList.add("temperature");
+
+   // 3-day forecast elements
+  const daysView = document.createElement("div");
   for (let i = 0; i < 3; i++) {
     const dayDiv = document.createElement("div");
     const dayName = document.createElement("div");
@@ -133,7 +168,6 @@ function createDom() {
     const chanceRainText = document.createElement("span");
     const chanceRainIcon = new Image();
     chanceRainIcon.src = drop;
-
     const sunrise = document.createElement("div");
     const sunriseIcon = new Image();
     sunriseIcon.src = sun0;
@@ -155,7 +189,6 @@ function createDom() {
     sunrise.classList.add("sunrise");
     sunset.classList.add("sunset");
 
-
     dayDiv.appendChild(dayName);
     conditionDiv.appendChild(conditionIcon);
     dayDiv.appendChild(conditionDiv);
@@ -173,47 +206,40 @@ function createDom() {
     daysView.appendChild(dayDiv);
   }
 
-  const cityName = document.createElement("div");
-  const temp = document.createElement("div");
-  const time = document.createElement("div");
-
-  cityName.classList.add("city-name");
-  temp.classList.add("temperature");
-  time.classList.add("time");
-  inputBox.classList.add("input-box");
-  inputBtn.classList.add("input-btn");
-
-  inputBox.setAttribute("id", "input");
-  inputBtn.setAttribute("for", "input");
-
-  inputBtn.textContent = "OK";
-
-  inputBtn.addEventListener("click", () => {
-    newCity = inputBox.value;
-    console.log(newCity);
-    getWeather(newCity);
-    inputBox.value = "";
-  });
-
+  top.appendChild(inputLabel);
   top.appendChild(inputBox);
   top.appendChild(inputBtn);
-  top.appendChild(temp);
-  top.appendChild(cityName);
-  top.appendChild(time);
+
+  currentLeft.appendChild(cityName);
+  currentLeft.appendChild(today);
+  currentLeft.appendChild(localTime);
+  currentRight.appendChild(temp);
+
+  currentView.appendChild(currentLeft);
+  currentView.appendChild(currentRight);
+
   body.appendChild(top);
+  body.appendChild(currentView)
   body.appendChild(daysView);
 }
 
 function fillDom() {
   const cityName = document.querySelector(".city-name");
   const temp = document.querySelector(".temperature");
-  const time = document.querySelector(".time");
+  const today = document.querySelector(".today");
+  const localTime = document.querySelector(".local-time");
+
+
+  const todayWeek = new Date(`${currentWeather.time}`);
+  // month - from 0 to 11, so need to add +1
+  today.textContent = `Today is ${weekdays[todayWeek.getDay()]}, ${todayWeek.getDate()}.${todayWeek.getMonth()+1}.${todayWeek.getFullYear()}. `;
+  localTime.textContent = `Local time: ${todayWeek.getHours()}:${todayWeek.getMinutes()}.`;
+  
   const daysView = document.querySelector(".days-view");
 
 
   cityName.textContent = currentWeather.city;
   temp.textContent = currentWeather.tempC + " °C";
-  time.textContent = currentWeather.time;
 
   // weather forecast for 3 days - fill with fetched data
   for (let i = 0; i < 3; i++) {
@@ -246,17 +272,6 @@ function fillDom() {
 createDom();
 getWeather(currentCity);
 
-function getDate() {
-  let newDate = new Date("2023-10-22 0:41");
-
-  const date =
-    newDate.getDate() + "." + newDate.getMonth() + "." + newDate.getFullYear();
-  const time = newDate.getHours() + ":" + newDate.getMinutes();
-  console.log(date);
-  console.log(time);
-}
-
-getDate();
 
 /*
 Future weather - 3 days
@@ -279,5 +294,17 @@ in case of error: show a message to try again. different error when the city doe
 in case it works:
 currentCity = newCity
 fill the dom with fetched values
+
+*/
+
+/*
+Today is Weekday, 01.01.2023
+Local time: 12:00
+
+Search:
+Placeholder un input box - enter city name
+add event listener for enter in input box
+error: City not found.
+Error, please try again.
 
 */
