@@ -1,18 +1,31 @@
 import config from "../config.js";
-//import "./style.css";
-//import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
-// phone variables, comment them out on pc
-const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
-const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
-const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
-const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
-const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
+// pc import variables, comment them out on mobile
+import "./style.css";
+import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+import sun0 from "./wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
+import sun1 from "./wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
+import arrow0 from "./south_FILL0_wght400_GRAD0_opsz24.svg";
+import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
+// phone import variables, comment them out on pc
+// const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+// const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
+// const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
+// const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
+// const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
 
 const apiKey = config.API_KEY;
 
 let newCity = "";
 let currentCity = "Warsaw";
-const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekdays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 let currentWeather = {
   city: "",
   time: "",
@@ -20,7 +33,7 @@ let currentWeather = {
   tempC: "",
   tempF: "",
   condition: "",
-  condition_icon: ""
+  condition_icon: "",
 };
 
 let futureWeather = [
@@ -73,79 +86,79 @@ async function getWeather(city) {
 
   try {
     const forecast = await fetch(
-      "http://api.weatherapi.com/v1/forecast.json?key=" +
-        apiKey +
-        "&q=" +
-        city +
-        "&days=14",
+      `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=14`,
     );
     const data = await forecast.json();
-    
+
     if (!forecast.ok) {
       errorMsg.classList.add("err-active");
       if (data.error.code === 1006) {
         errorMsg.textContent = "City not found";
-      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+        throw new Error(
+          `Error ${forecast.status} ${forecast.statusText}. ${data.error.message}`,
+        );
       } else if (data.error.code === 1003) {
         errorMsg.textContent = "You must enter a city name";
-      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+        throw new Error(
+          `Error ${forecast.status} ${forecast.statusText}. ${data.error.message}`,
+        );
       } else if (data.error.code === 9999) {
-      errorMsg.textContent = "Internal error, please try again";
-      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+        errorMsg.textContent = "Internal error, please try again";
+        throw new Error(
+          `Error ${forecast.status} ${forecast.statusText}. ${data.error.message}`,
+        );
       } else {
         errorMsg.textContent = "Error, please try again later";
-        throw new Error("Error " + forecast.status + " " + forecast.statusText);
+        throw new Error(`Error ${forecast.status} ${forecast.statusText}`);
       }
     }
-      //console.log(data);
-      currentWeather = {
-        city: data.location.name,
-        time: data.location.localtime,
-        country: data.location.country,
-        tempC: data.current.temp_c,
-        tempF: data.current.temp_f,
-        condition: data.current.condition.text,
-        condition_icon: data.current.condition.icon,
+    // console.log(data);
+    currentWeather = {
+      city: data.location.name,
+      time: data.location.localtime,
+      country: data.location.country,
+      tempC: data.current.temp_c,
+      tempF: data.current.temp_f,
+      condition: data.current.condition.text,
+      condition_icon: data.current.condition.icon,
+    };
+    for (let i = 0; i < 3; i++) {
+      futureWeather[i].date = data.forecast.forecastday[i].date;
+      futureWeather[i].sunrise = data.forecast.forecastday[i].astro.sunrise;
+      futureWeather[i].sunset = data.forecast.forecastday[i].astro.sunset;
+      futureWeather[i].avgtemp_c = data.forecast.forecastday[i].day.avgtemp_c;
+      futureWeather[i].avgtemp_f = data.forecast.forecastday[i].day.avgtemp_f;
+      futureWeather[i].condition_text =
+        data.forecast.forecastday[i].day.condition.text;
+      futureWeather[i].condition_icon =
+        data.forecast.forecastday[i].day.condition.icon;
+      futureWeather[i].daily_chance_of_rain =
+        data.forecast.forecastday[i].day.daily_chance_of_rain;
+      futureWeather[i].maxtemp_c = data.forecast.forecastday[i].day.maxtemp_c;
+      futureWeather[i].maxtemp_f = data.forecast.forecastday[i].day.maxtemp_f;
+      futureWeather[i].mintemp_c = data.forecast.forecastday[i].day.mintemp_c;
+      futureWeather[i].mintemp_f = data.forecast.forecastday[i].day.mintemp_f;
+    }
+    errorMsg.classList.remove("err-active");
 
-      };
-      for (let i = 0; i < 3; i++) {
-        futureWeather[i].date = data.forecast.forecastday[i].date;
-        futureWeather[i].sunrise = data.forecast.forecastday[i].astro.sunrise;
-        futureWeather[i].sunset = data.forecast.forecastday[i].astro.sunset;
-        futureWeather[i].avgtemp_c = data.forecast.forecastday[i].day.avgtemp_c;
-        futureWeather[i].avgtemp_f = data.forecast.forecastday[i].day.avgtemp_f;
-        futureWeather[i].condition_text =
-          data.forecast.forecastday[i].day.condition.text;
-        futureWeather[i].condition_icon =
-          data.forecast.forecastday[i].day.condition.icon;
-        futureWeather[i].daily_chance_of_rain =
-          data.forecast.forecastday[i].day.daily_chance_of_rain;
-        futureWeather[i].maxtemp_c = data.forecast.forecastday[i].day.maxtemp_c;
-        futureWeather[i].maxtemp_f = data.forecast.forecastday[i].day.maxtemp_f;
-        futureWeather[i].mintemp_c = data.forecast.forecastday[i].day.mintemp_c;
-        futureWeather[i].mintemp_f = data.forecast.forecastday[i].day.mintemp_f;
-      }
-      errorMsg.classList.remove("err-active");
+    // console.log(futureWeather[0]);
 
-      //console.log(futureWeather[0]);
-
-      fillDom();
-    //errorMsg.classList.add("err-active");
-     // throw new Error(forecast.status + " " + forecast.statusText + data.error.code);
-    
+    fillDom();
+    // errorMsg.classList.add("err-active");
+    // throw new Error(forecast.status + " " + forecast.statusText + data.error.code);
   } catch (err) {
-   // errorMsg.classList.add("err-active");
-   // errorMsg.textContent = err.message;
+    // errorMsg.classList.add("err-active");
+    // errorMsg.textContent = err.message;
     console.log(err.message);
-    //errorMsg.classList.add("err-active");
-    //console.log(data.error.code + " " + data.error.status);
+    // errorMsg.classList.add("err-active");
+    // console.log(data.error.code + " " + data.error.status);
   }
   // console.log(data);
 }
 
 function createDom() {
   const body = document.querySelector("body");
-  
+
   // top navigation
   const top = document.createElement("div");
   const topLeft = document.createElement("div");
@@ -155,7 +168,7 @@ function createDom() {
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
   const error = document.createElement("div");
-  
+
   // today's forecast elements
   const currentView = document.createElement("div");
   const currentLeft = document.createElement("div");
@@ -166,9 +179,9 @@ function createDom() {
   const dayTime = document.createElement("div");
   const today = document.createElement("div");
   const localTime = document.createElement("div");
-   const cityName = document.createElement("div");
+  const cityName = document.createElement("div");
   const temp = document.createElement("div");
-  
+
   top.classList.add("top");
   topLeft.classList.add("top-left");
   topRight.classList.add("top-right");
@@ -189,7 +202,7 @@ function createDom() {
   });
   error.classList.add("error");
   error.textContent = "Error";
-  
+
   currentView.classList.add("current-view");
   currConIcon.classList.add("curr-con-icon");
   today.classList.add("today");
@@ -197,7 +210,7 @@ function createDom() {
   cityName.classList.add("city-name");
   temp.classList.add("temperature");
 
-   // 3-day forecast elements
+  // 3-day forecast elements
   const daysView = document.createElement("div");
   for (let i = 0; i < 3; i++) {
     const dayDiv = document.createElement("div");
@@ -224,7 +237,7 @@ function createDom() {
     const sunsetIcon = new Image();
     sunsetIcon.src = sun1;
     const sunsetText = document.createElement("span");
-    
+
     daysView.classList.add("days-view");
     dayDiv.setAttribute("id", `day${i}`);
     dayDiv.classList.add("day-div");
@@ -276,7 +289,7 @@ function createDom() {
   currentView.appendChild(currentRight);
 
   body.appendChild(top);
-  body.appendChild(currentView)
+  body.appendChild(currentView);
   body.appendChild(daysView);
 }
 
@@ -289,18 +302,19 @@ function fillDom() {
 
   const todayWeek = new Date(`${currentWeather.time}`);
   // month - from 0 to 11, so need to add +1
-  today.textContent = `Today is ${weekdays[todayWeek.getDay()]}, ${todayWeek.getDate()}.${todayWeek.getMonth()+1}.${todayWeek.getFullYear()}. `;
+  today.textContent = `Today is ${
+    weekdays[todayWeek.getDay()]
+  }, ${todayWeek.getDate()}.${
+    todayWeek.getMonth() + 1
+  }.${todayWeek.getFullYear()}. `;
   localTime.textContent = `Local time: ${todayWeek.getHours()}:${todayWeek.getMinutes()}.`;
-  currConIcon.src = "https:" + currentWeather.condition_icon;
-  
-  const daysView = document.querySelector(".days-view");
+  currConIcon.src = `https:${currentWeather.condition_icon}`;
 
   cityName.textContent = currentWeather.city;
-  temp.textContent = currentWeather.tempC + " °C";
+  temp.textContent = `${currentWeather.tempC} °C`;
 
   // weather forecast for 3 days - fill with fetched data
   for (let i = 0; i < 3; i++) {
-    const day = document.querySelector(`#day${i}`);
     const dayName = document.querySelector(`#day${i} .day-name`);
     const maxT = document.querySelector(`#day${i} .max-temp span`);
     const minT = document.querySelector(`#day${i} .min-temp span`);
@@ -316,19 +330,17 @@ function fillDom() {
       dayName.textContent = weekdays[dayNum];
     }
 
-    conditionIcon.src = "https:" + futureWeather[i].condition_icon;
-    maxT.textContent = futureWeather[i].maxtemp_c + " °C";
-    minT.textContent = futureWeather[i].mintemp_c + " °C";
-    chanceRainText.textContent = futureWeather[i].daily_chance_of_rain + "%";
+    conditionIcon.src = `https:${futureWeather[i].condition_icon}`;
+    maxT.textContent = `${futureWeather[i].maxtemp_c} °C`;
+    minT.textContent = `${futureWeather[i].mintemp_c} °C`;
+    chanceRainText.textContent = `${futureWeather[i].daily_chance_of_rain}%`;
     sunriseText.textContent = futureWeather[i].sunrise;
     sunsetText.textContent = futureWeather[i].sunset;
-
   }
 }
 
 createDom();
 getWeather(currentCity);
-
 
 /*
 Future weather - 3 days
