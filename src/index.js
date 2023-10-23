@@ -5,6 +5,9 @@ import config from "../config.js";
 const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
+const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
+const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
+
 const apiKey = config.API_KEY;
 
 console.log("aaa");
@@ -18,6 +21,7 @@ let currentWeather = {
   tempC: "",
   tempF: "",
   condition: "",
+  condition_icon: ""
 };
 
 let futureWeather = [
@@ -87,6 +91,8 @@ async function getWeather(city) {
         tempC: data.current.temp_c,
         tempF: data.current.temp_f,
         condition: data.current.condition.text,
+        condition_icon: data.current.condition.icon,
+
       };
       for (let i = 0; i < 3; i++) {
         futureWeather[i].date = data.forecast.forecastday[i].date;
@@ -125,10 +131,12 @@ async function getWeather(city) {
 
 function createDom() {
   const body = document.querySelector("body");
+  
+  // top navigation
   const top = document.createElement("div");
   const topLeft = document.createElement("div");
+  const siteName = document.createElement("div");
   const topRight = document.createElement("div");
-
   const inputLabel = document.createElement("label");
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
@@ -137,7 +145,9 @@ function createDom() {
   // today's forecast elements
   const currentView = document.createElement("div");
   const currentLeft = document.createElement("div");
-    const currentRight = document.createElement("div");
+  const currentRight = document.createElement("div");
+  const currCondition = document.createElement("div");
+  const currConIcon = new Image();
 
   const dayTime = document.createElement("div");
   const today = document.createElement("div");
@@ -146,9 +156,11 @@ function createDom() {
   const temp = document.createElement("div");
   
   top.classList.add("top");
+  topLeft.classList.add("top-left");
   topRight.classList.add("top-right");
   inputBox.classList.add("input-box");
   inputBtn.classList.add("input-btn");
+  siteName.textContent = "Weather App";
   inputBox.setAttribute("id", "input");
   inputBox.setAttribute("placeholder", "Enter city name");
   inputBtn.setAttribute("for", "input");
@@ -165,6 +177,7 @@ function createDom() {
   error.textContent = "Error";
   
   currentView.classList.add("current-view");
+  currConIcon.classList.add("curr-con-icon");
   today.classList.add("today");
   localTime.classList.add("local-time");
   cityName.classList.add("city-name");
@@ -178,7 +191,13 @@ function createDom() {
     const conditionDiv = document.createElement("div");
     const conditionIcon = new Image();
     const maxT = document.createElement("div");
+    const maxTIcon = new Image();
+    maxTIcon.src = arrow1;
+    const maxTText = document.createElement("span");
     const minT = document.createElement("div");
+    const minTIcon = new Image();
+    minTIcon.src = arrow0;
+    const minTText = document.createElement("span");
     const chanceRain = document.createElement("div");
     const chanceRainText = document.createElement("span");
     const chanceRainIcon = new Image();
@@ -207,7 +226,11 @@ function createDom() {
     dayDiv.appendChild(dayName);
     conditionDiv.appendChild(conditionIcon);
     dayDiv.appendChild(conditionDiv);
+    maxT.appendChild(maxTIcon);
+    maxT.appendChild(maxTText);
     dayDiv.appendChild(maxT);
+    minT.appendChild(minTIcon);
+    minT.appendChild(minTText);
     dayDiv.appendChild(minT);
     chanceRain.appendChild(chanceRainIcon);
     chanceRain.appendChild(chanceRainText);
@@ -221,7 +244,7 @@ function createDom() {
     daysView.appendChild(dayDiv);
   }
 
-  
+  topLeft.appendChild(siteName);
   topRight.appendChild(inputLabel);
   topRight.appendChild(inputBox);
   topRight.appendChild(inputBtn);
@@ -229,12 +252,12 @@ function createDom() {
   top.appendChild(topLeft);
   top.appendChild(topRight);
 
-
   currentLeft.appendChild(cityName);
   currentLeft.appendChild(today);
   currentLeft.appendChild(localTime);
+  currCondition.appendChild(currConIcon);
   currentRight.appendChild(temp);
-
+  currentRight.appendChild(currCondition);
   currentView.appendChild(currentLeft);
   currentView.appendChild(currentRight);
 
@@ -246,6 +269,7 @@ function createDom() {
 function fillDom() {
   const cityName = document.querySelector(".city-name");
   const temp = document.querySelector(".temperature");
+  const currConIcon = document.querySelector(".curr-con-icon");
   const today = document.querySelector(".today");
   const localTime = document.querySelector(".local-time");
 
@@ -253,9 +277,9 @@ function fillDom() {
   // month - from 0 to 11, so need to add +1
   today.textContent = `Today is ${weekdays[todayWeek.getDay()]}, ${todayWeek.getDate()}.${todayWeek.getMonth()+1}.${todayWeek.getFullYear()}. `;
   localTime.textContent = `Local time: ${todayWeek.getHours()}:${todayWeek.getMinutes()}.`;
+  currConIcon.src = "https:" + currentWeather.condition_icon;
   
   const daysView = document.querySelector(".days-view");
-
 
   cityName.textContent = currentWeather.city;
   temp.textContent = currentWeather.tempC + " °C";
@@ -264,8 +288,8 @@ function fillDom() {
   for (let i = 0; i < 3; i++) {
     const day = document.querySelector(`#day${i}`);
     const dayName = document.querySelector(`#day${i} .day-name`);
-    const maxT = document.querySelector(`#day${i} .max-temp`);
-    const minT = document.querySelector(`#day${i} .min-temp`);
+    const maxT = document.querySelector(`#day${i} .max-temp span`);
+    const minT = document.querySelector(`#day${i} .min-temp span`);
     const conditionIcon = document.querySelector(`#day${i} .condition-icon`);
     const chanceRainText = document.querySelector(`#day${i} .chance-rain span`);
     const sunriseText = document.querySelector(`#day${i} .sunrise span`);
@@ -317,13 +341,12 @@ fill the dom with fetched values
 */
 
 /*
-Today is Weekday, 01.01.2023
-Local time: 12:00
-
+l
 Search:
-Placeholder un input box - enter city name
 add event listener for enter in input box
 error: City not found.
 Error, please try again.
 
+problem with hours, minutes and months - it shows 1 number instead of 01
+different errors for different codes
 */

@@ -12,6 +12,8 @@ body {
 .top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 4px;
 /*  display: grid;
   grid-template-columns: fit-content;
   grid-template-rows: 1fr 1fr;
@@ -22,6 +24,10 @@ body {
   grid-template-areas: "label input button"
   "error error error";
     justify-items: center;*/
+}
+
+.top-left div {
+  font-weight: bold;
 }
 
 .input-box {
@@ -48,8 +54,9 @@ body {
 
 .current-view {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  margin: 12px 6px;
 }
 
 .temperature {
@@ -57,6 +64,7 @@ body {
 }
 
 .city-name {
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -103,3 +111,12 @@ body {
   top: 5px;
 }
 
+.max-temp img {
+  position: relative;
+  top: 2px;
+}
+
+.min-temp img {
+  position: relative;
+  top: 3px;
+}
