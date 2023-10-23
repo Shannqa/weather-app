@@ -10,7 +10,6 @@ const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
 
 const apiKey = config.API_KEY;
 
-console.log("aaa");
 let newCity = "";
 let currentCity = "Warsaw";
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -80,10 +79,25 @@ async function getWeather(city) {
         city +
         "&days=14",
     );
-    if (forecast.status === 200) {
-      const data = await forecast.json();
-
-      console.log(data);
+    const data = await forecast.json();
+    
+    if (!forecast.ok) {
+      errorMsg.classList.add("err-active");
+      if (data.error.code === 1006) {
+        errorMsg.textContent = "City not found";
+      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+      } else if (data.error.code === 1003) {
+        errorMsg.textContent = "You must enter a city name";
+      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+      } else if (data.error.code === 9999) {
+      errorMsg.textContent = "Internal error, please try again";
+      throw new Error("Error " + forecast.status + " " + forecast.statusText + ". " + data.error.message);
+      } else {
+        errorMsg.textContent = "Error, please try again later";
+        throw new Error("Error " + forecast.status + " " + forecast.statusText);
+      }
+    }
+      //console.log(data);
       currentWeather = {
         city: data.location.name,
         time: data.location.localtime,
@@ -113,18 +127,18 @@ async function getWeather(city) {
       }
       errorMsg.classList.remove("err-active");
 
-      console.log(futureWeather[0]);
+      //console.log(futureWeather[0]);
 
       fillDom();
-    } else {
-      errorMsg.classList.add("err-active");
-      throw new Error(response.status + " " + response.statusText);
-    }
+    //errorMsg.classList.add("err-active");
+     // throw new Error(forecast.status + " " + forecast.statusText + data.error.code);
+    
   } catch (err) {
-    errorMsg.textContent = "Error, please try again";
-
-    errorMsg.classList.add("err-active");
+   // errorMsg.classList.add("err-active");
+   // errorMsg.textContent = err.message;
     console.log(err.message);
+    //errorMsg.classList.add("err-active");
+    //console.log(data.error.code + " " + data.error.status);
   }
   // console.log(data);
 }
