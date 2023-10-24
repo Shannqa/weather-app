@@ -1,18 +1,26 @@
 import config from "../config.js";
+import backgrounds from "./background.js";
 // pc import variables, comment them out on mobile
-/*import "./style.css";
+import "./style.css";
 import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 import sun0 from "./wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 import sun1 from "./wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 import arrow0 from "./south_FILL0_wght400_GRAD0_opsz24.svg";
-import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";*/
-// phone import variables, comment them out on pc
- const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
- const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
- const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
- const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
- const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
+import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
 
+// phone import variables, comment them out on pc
+//  const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+//  const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
+//  const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
+//  const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
+//  const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
+function setBackground() {
+  const body = document.querySelector("body");
+  // const backgroundImg = backgrounds.lightRain[5].src;
+  // const backgroundImg = thunderstormsrc1;
+  // body.style.backgroundImage = "url(" + backgroundImg + ")";
+}
+setBackground();
 const apiKey = config.API_KEY;
 
 let newCity = "";
