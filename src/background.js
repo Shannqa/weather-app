@@ -1,5 +1,5 @@
 // imports for webpack
-/* import sunnysrc0 from "./kelly-sikkema-PqqQDpS6H6A-unsplash.jpg" */
+/*
 import sunnysrc0 from "./backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
 import sunnysrc1 from "./backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
 import partlyCloudysrc0 from "./backgrounds/adriel-kloppenburg-L_kKnLXNTBI-unsplash.jpg";
@@ -35,33 +35,45 @@ import icesrc0 from "./backgrounds/marcel-strauss-pWIYmeO0x-s-unsplash.jpg";
 import icesrc1 from "./backgrounds/tunafish-k4pewVTE9IA-unsplash.jpg";
 import thunderstormsrc0 from "./backgrounds/christian-spuller-Oaec-W0b2ss-unsplash.jpg";
 import thunderstormsrc1 from "./backgrounds/aditya-vyas-PzhmEp_aDU4-unsplash.jpg";
-
+*/
 // phone variables instead of imports
 // const sunnysrc0 = "src/kelly-sikkema-PqqQDpS6H6A-unsplash.jpg";
-// const sunnysrc1 = "src/backgrounds/sead-dzambegovic-U5bXbSgAuYE-unsplash.jpg";
-// const sunnysrc2 = "src/backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
-// const sunnysrc3 = "src/backgrounds/note-thanun-ab-Yr2Rq2aI-unsplash.jpg";
-// const sunnysrc4 = "src/backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
-// const partlyCloudysrc0 = "";
-// const partlyCloudysrc1 = "";
-// const partlyCloudysrc2 = "";
-// const partlyCloudysrc3 = "";
-// const partlyCloudysrc4 = "";
-// const partlyCloudysrc5 = "";
-// const partlyCloudysrc6 = "";
-// const partlyCloudysrc7 = "";
-// const partlyCloudysrc8 = "";
-// const partlyCloudysrc9 = "";
-// const partlyCloudysrc10 = "";
 
-// const cloudssrc0 = "";
-// const cloudssrc1 = "";
-// const cloudssrc2 = "";
-// const cloudssrc3 = "";
-// const cloudssrc4 = "";
-
-// const mistsrc0 = "";
-// const mistsrc1 = "";
+const sunnysrc0 = "src/backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
+const sunnysrc1 = "src/backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
+const partlyCloudysrc0 = "src/backgrounds/adriel-kloppenburg-L_kKnLXNTBI-unsplash.jpg";
+const partlyCloudysrc1 = "src/backgrounds/engin-akyurt-htxFR8R5Brs-unsplash.jpg";
+const cloudssrc0 = "src/backgrounds/engin-akyurt-izUxVfFnufE-unsplash.jpg";
+const cloudssrc1 = "src/backgrounds/nick-fewings-Xu83LWZJhlY-unsplash.jpg";
+const mistsrc0 = "src/backgrounds/piyanshu-sharma-UGEvpQkKCeQ-unsplash.jpg";
+const mistsrc1 = "src/backgrounds/alessio-soggetti-gdE-5Oui1Y0-unsplash.jpg";
+const mistsrc2 = "src/backgrounds/evgeniy-prokofiev--9lkyTc2rlI-unsplash.jpg";
+const lightRainsrc0 = "src/backgrounds/loren-gu-_bT-oNYP5Wk-unsplash.jpg";
+const lightRainsrc1 = "src/backgrounds/max-bender-1YHXFeOYpN0-unsplash.jpg";
+const lightRainsrc2 = "src/backgrounds/noah-silliman-WQo7FmqQBpo-unsplash.jpg";
+const lightRainsrc3 = "src/backgrounds/s-tsuchiya-FZYMMSeXMTI-unsplash.jpg";
+const rainsrc0 = "src/backgrounds/jose-fontano-TdPQp3fjzOw-unsplash.jpg";
+const rainsrc1 = "src/backgrounds/joy-stamp-pGQbWXBC1dA-unsplash.jpg";
+const rainsrc2 = "src/backgrounds/kristaps-grundsteins-fAY23t1iA40-unsplash.jpg";
+const rainsrc3 = "src/backgrounds/kushagra-kevat-pPGcNgNB86c-unsplash.jpg";
+const rainsrc4 = "src/backgrounds/valentin-muller-bWtd1ZyEy6w-unsplash.jpg";
+const sleetsrc0 = "src/backgrounds/osman-rana-GXEZuWo5m4I-unsplash.jpg";
+const sleetsrc1 = "src/backgrounds/tim-foster-5W0_3fHMH6Y-unsplash.jpg";
+const sleetsrc2 = "src/backgrounds/will-swann--8rfklbHcy0-unsplash.jpg";
+const snowsrc0 = "src/backgrounds/aaron-burden-cGW1w-qLix8-unsplash.jpg";
+const snowsrc1 = "src/backgrounds/ali-inay-yNaGxHqjOuw-unsplash.jpg";
+const snowsrc2 = "src/backgrounds/dave-hoefler-V5-qj1_N8CE-unsplash.jpg";
+const snowsrc3 = "src/backgrounds/gino-castillo-GtcbqalW0bQ-unsplash.jpg";
+const snowsrc4 = "src/backgrounds/simon-berger-SD68VmEjzdA-unsplash.jpg";
+const thundersrc0 = "src/backgrounds/felix-mittermeier-WLGHjbC0Cq4-unsplash.jpg";
+const thundersrc1 = "src/backgrounds/jens-muller-KHHbCZXlezo-unsplash.jpg";
+const thundersrc2 = "src/backgrounds/johannes-plenio-ESL1rIs9j48-unsplash.jpg";
+const thundersrc3 = "src/backgrounds/jonas-kaiser-ley4Kf2iG7Y-unsplash.jpg";
+const thundersrc4 = "src/backgrounds/simon-maisch-Im3tGNrNv4s-unsplash.jpg";
+const icesrc0 = "src/backgrounds/marcel-strauss-pWIYmeO0x-s-unsplash.jpg";
+const icesrc1 = "src/backgrounds/tunafish-k4pewVTE9IA-unsplash.jpg";
+const thunderstormsrc0 = "src/backgrounds/christian-spuller-Oaec-W0b2ss-unsplash.jpg";
+const thunderstormsrc1 = "src/backgrounds/aditya-vyas-PzhmEp_aDU4-unsplash.jpg";
 
 const backgrounds = {
   sunny: [
