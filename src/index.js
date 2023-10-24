@@ -22,15 +22,20 @@ function setBackground() {
   if (code === 1000) {
     // sunny
     random = Math.floor(Math.random() * backgrounds.sunny.length);
-    // console.log(random);
     backgroundImg = backgrounds.sunny[random].src;
-    // console.log(backgroundImg);
+    console.log(backgroundImg);
   } else if (code === 1003) {
     // partly cloudy
+    random = Math.floor(Math.random() * backgrounds.partlyCloudy.length);
+    backgroundImg = backgrounds.partlyCloudy[random].src;
   } else if (code === 1006 || code === 1009) {
     // cloudy overcast
+    random = Math.floor(Math.random() * backgrounds.clouds.length);
+    backgroundImg = backgrounds.clouds[random].src;
   } else if (code === 1030 || code === 1135 || code === 1147) {
     // mist, fog, freezing fog
+    random = Math.floor(Math.random() * backgrounds.mist.length);
+    backgroundImg = backgrounds.mist[random].src;
   } else if (
     code === 1063 ||
     code === 1150 ||
@@ -40,6 +45,8 @@ function setBackground() {
     code === 1240
   ) {
     // patchy rain, patchy light drizzle, light drizzle, light rain
+    random = Math.floor(Math.random() * backgrounds.lightRain.length);
+    backgroundImg = backgrounds.lightRain[random].src;
   } else if (
     code === 1186 ||
     code === 1189 ||
@@ -49,6 +56,8 @@ function setBackground() {
     code === 1246
   ) {
     // moderate rain, rain, heavy rain
+    random = Math.floor(Math.random() * backgrounds.rain.length);
+    backgroundImg = backgrounds.rain[random].src;
   } else if (
     code === 1066 ||
     code === 1114 ||
@@ -63,6 +72,8 @@ function setBackground() {
     code === 1258
   ) {
     // patchy snow, blowing snow, blizzard
+    random = Math.floor(Math.random() * backgrounds.snow.length);
+    backgroundImg = backgrounds.snow[random].src;
   } else if (
     code === 1069 ||
     code === 1072 ||
@@ -76,14 +87,22 @@ function setBackground() {
     code === 1252
   ) {
     // patchy sleet or freezing drizzle, light freezing rain, sleet
+    random = Math.floor(Math.random() * backgrounds.sleet.length);
+    backgroundImg = backgrounds.sleet[random].src;
   } else if (code === 1087 || code === 1273 || code === 1276) {
     // thundery outbreaks
+    random = Math.floor(Math.random() * backgrounds.thunder.length);
+    backgroundImg = backgrounds.thunder[random].src;
   } else if (code === 1237 || code === 1261 || code === 1264) {
     // ice pellets
+    random = Math.floor(Math.random() * backgrounds.ice.length);
+    backgroundImg = backgrounds.ice[random].src;
   } else if (code === 1279 || code === 1282) {
     // snow with thunder
+    random = Math.floor(Math.random() * backgrounds.thunderstorm.length);
+    backgroundImg = backgrounds.thunderstorm[random].src;
   }
-
+  console.log(backgroundImg);
   body.style.backgroundImage = "url(" + backgroundImg + ")";
 }
 
