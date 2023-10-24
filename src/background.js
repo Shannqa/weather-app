@@ -1,8 +1,7 @@
 // imports for webpack
 /* import sunnysrc0 from "./kelly-sikkema-PqqQDpS6H6A-unsplash.jpg" */
 import sunnysrc0 from "./backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
-import sunnysrc1 from "./backgrounds/note-thanun-ab-Yr2Rq2aI-unsplash.jpg";
-import sunnysrc2 from "./backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
+import sunnysrc1 from "./backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
 import partlyCloudysrc0 from "./backgrounds/adriel-kloppenburg-L_kKnLXNTBI-unsplash.jpg";
 import partlyCloudysrc1 from "./backgrounds/engin-akyurt-htxFR8R5Brs-unsplash.jpg";
 import cloudssrc0 from "./backgrounds/engin-akyurt-izUxVfFnufE-unsplash.jpg";
@@ -73,11 +72,6 @@ const backgrounds = {
     },
     {
       src: sunnysrc1,
-      author: "note thanun",
-      ref: "https://unsplash.com/photos/pink-cherry-blossom-tree-under-blue-sky-during-daytime-ab-Yr2Rq2aI?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
-    },
-    {
-      src: sunnysrc2,
       author: "Adriel Kloppenburg",
       ref: "https://unsplash.com/photos/brown-grass-field-near-mountain-during-daytime-IaSrOEEHU2w?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
     },

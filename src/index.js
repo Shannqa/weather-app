@@ -16,11 +16,77 @@ import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
 //  const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
 function setBackground() {
   const body = document.querySelector("body");
-  // const backgroundImg = backgrounds.lightRain[5].src;
-  // const backgroundImg = thunderstormsrc1;
-  // body.style.backgroundImage = "url(" + backgroundImg + ")";
+  const code = currentWeather.condition_code;
+  let backgroundImg;
+  let random;
+  if (code === 1000) {
+    // sunny
+    random = Math.floor(Math.random() * backgrounds.sunny.length);
+    // console.log(random);
+    backgroundImg = backgrounds.sunny[random].src;
+    // console.log(backgroundImg);
+  } else if (code === 1003) {
+    // partly cloudy
+  } else if (code === 1006 || code === 1009) {
+    // cloudy overcast
+  } else if (code === 1030 || code === 1135 || code === 1147) {
+    // mist, fog, freezing fog
+  } else if (
+    code === 1063 ||
+    code === 1150 ||
+    code === 1153 ||
+    code === 1180 ||
+    code === 1183 ||
+    code === 1240
+  ) {
+    // patchy rain, patchy light drizzle, light drizzle, light rain
+  } else if (
+    code === 1186 ||
+    code === 1189 ||
+    code === 1192 ||
+    code === 1195 ||
+    code === 1243 ||
+    code === 1246
+  ) {
+    // moderate rain, rain, heavy rain
+  } else if (
+    code === 1066 ||
+    code === 1114 ||
+    code === 1117 ||
+    code === 1210 ||
+    code === 1213 ||
+    code === 1216 ||
+    code === 1219 ||
+    code === 1222 ||
+    code === 1225 ||
+    code === 1255 ||
+    code === 1258
+  ) {
+    // patchy snow, blowing snow, blizzard
+  } else if (
+    code === 1069 ||
+    code === 1072 ||
+    code === 1168 ||
+    code === 1171 ||
+    code === 1198 ||
+    code === 1201 ||
+    code === 1204 ||
+    code === 1207 ||
+    code === 1249 ||
+    code === 1252
+  ) {
+    // patchy sleet or freezing drizzle, light freezing rain, sleet
+  } else if (code === 1087 || code === 1273 || code === 1276) {
+    // thundery outbreaks
+  } else if (code === 1237 || code === 1261 || code === 1264) {
+    // ice pellets
+  } else if (code === 1279 || code === 1282) {
+    // snow with thunder
+  }
+
+  body.style.backgroundImage = "url(" + backgroundImg + ")";
 }
-setBackground();
+
 const apiKey = config.API_KEY;
 
 let newCity = "";
@@ -42,6 +108,7 @@ let currentWeather = {
   tempF: "",
   condition: "",
   condition_icon: "",
+  code: "",
 };
 
 let futureWeather = [
@@ -97,7 +164,7 @@ async function getWeather(city) {
       `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=14`,
     );
     const data = await forecast.json();
-
+    console.log(data);
     if (!forecast.ok) {
       errorMsg.classList.add("err-active");
       if (data.error.code === 1006) {
@@ -129,6 +196,7 @@ async function getWeather(city) {
       tempF: data.current.temp_f,
       condition: data.current.condition.text,
       condition_icon: data.current.condition.icon,
+      condition_code: data.current.condition.code,
     };
     for (let i = 0; i < 3; i++) {
       futureWeather[i].date = data.forecast.forecastday[i].date;
@@ -152,6 +220,8 @@ async function getWeather(city) {
     // console.log(futureWeather[0]);
 
     fillDom();
+    setBackground();
+    console.log(currentWeather.condition_code);
     // errorMsg.classList.add("err-active");
     // throw new Error(forecast.status + " " + forecast.statusText + data.error.code);
   } catch (err) {
