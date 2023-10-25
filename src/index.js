@@ -17,26 +17,21 @@ import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";*/
   
 function setBackground() {
   const body = document.querySelector("body");
+  let back = "";
   const code = currentWeather.condition_code;
-  let backgroundImg;
-  let random;
   if (code === 1000) {
     // sunny
-    random = Math.floor(Math.random() * backgrounds.sunny.length);
-    backgroundImg = backgrounds.sunny[random].src;
+    back = backgrounds.sunny;
     console.log(backgroundImg);
   } else if (code === 1003) {
     // partly cloudy
-    random = Math.floor(Math.random() * backgrounds.partlyCloudy.length);
-    backgroundImg = backgrounds.partlyCloudy[random].src;
+    back = backgrounds.partlyCloudy;
   } else if (code === 1006 || code === 1009) {
     // cloudy overcast
-    random = Math.floor(Math.random() * backgrounds.clouds.length);
-    backgroundImg = backgrounds.clouds[random].src;
+    back = backgrounds.clouds;
   } else if (code === 1030 || code === 1135 || code === 1147) {
     // mist, fog, freezing fog
-    random = Math.floor(Math.random() * backgrounds.mist.length);
-    backgroundImg = backgrounds.mist[random].src;
+    back = backgrounds.mist;
   } else if (
     code === 1063 ||
     code === 1150 ||
@@ -46,8 +41,7 @@ function setBackground() {
     code === 1240
   ) {
     // patchy rain, patchy light drizzle, light drizzle, light rain
-    random = Math.floor(Math.random() * backgrounds.lightRain.length);
-    backgroundImg = backgrounds.lightRain[random].src;
+    back = backgrounds.lightRain;
   } else if (
     code === 1186 ||
     code === 1189 ||
@@ -57,8 +51,7 @@ function setBackground() {
     code === 1246
   ) {
     // moderate rain, rain, heavy rain
-    random = Math.floor(Math.random() * backgrounds.rain.length);
-    backgroundImg = backgrounds.rain[random].src;
+    back = backgrounds.rain;
   } else if (
     code === 1066 ||
     code === 1114 ||
@@ -73,8 +66,7 @@ function setBackground() {
     code === 1258
   ) {
     // patchy snow, blowing snow, blizzard
-    random = Math.floor(Math.random() * backgrounds.snow.length);
-    backgroundImg = backgrounds.snow[random].src;
+    back = backgrounds.snow;
   } else if (
     code === 1069 ||
     code === 1072 ||
@@ -88,29 +80,29 @@ function setBackground() {
     code === 1252
   ) {
     // patchy sleet or freezing drizzle, light freezing rain, sleet
-    random = Math.floor(Math.random() * backgrounds.sleet.length);
-    backgroundImg = backgrounds.sleet[random].src;
+    back = backgrounds.sleet;
   } else if (code === 1087 || code === 1273 || code === 1276) {
     // thundery outbreaks
-    random = Math.floor(Math.random() * backgrounds.thunder.length);
-    backgroundImg = backgrounds.thunder[random].src;
+    back = backgrounds.thunder;
   } else if (code === 1237 || code === 1261 || code === 1264) {
     // ice pellets
-    random = Math.floor(Math.random() * backgrounds.ice.length);
-    backgroundImg = backgrounds.ice[random].src;
+    back = backgrounds.ice;
   } else if (code === 1279 || code === 1282) {
     // snow with thunder
-    random = Math.floor(Math.random() * backgrounds.thunderstorm.length);
-    backgroundImg = backgrounds.thunderstorm[random].src;
+    back = backgrounds.thunderstorm;
   }
-  console.log(backgroundImg);
-  body.style.backgroundImage = "url(" + backgroundImg + ")";
+
+  let rand = Math.floor(Math.random() * back.length);
+  let backimg = back[rand].src;
+  let backauth = back[rand].author;
+  let backref = back[rand].ref;
+  console.log(backimg);
+  body.style.backgroundImage = "url(" + backimg + ")";
   
-    // add link and author to footer
-    const footerA = document.querySelector(".footer-photo a");
-    footerA.textContent = "a";
-    footerA.href = "b";
-  
+  // add link and author to footer
+  const footerA = document.querySelector(".footer-photo a");
+  footerA.textContent = backauth + " on Unsplash";
+  footerA.href = backref;
 }
 
 const apiKey = config.API_KEY;
@@ -325,8 +317,7 @@ function createDom() {
   footerCreatedSpan.textContent = "Created by ";
   footerCreatedA.href = "https://shannqa.github.io/homepage/index.html";
   footerCreatedA.textContent = "Shannqa";
-  
-  
+  footerPhotoSpan.textContent = "Photo by ";
   
   currentView.classList.add("current-view");
   currentLeft.classList.add("current-left");
