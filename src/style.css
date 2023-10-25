@@ -7,10 +7,8 @@
 body {
   background: lightblue;
   background-position: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
+  background-size: auto;
+  height: 100vh;
 }
 
 a, a:visited {
@@ -26,23 +24,13 @@ a:active {
 }
 
 .top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 4px;
   background-color: rgba(255, 255, 255, 0.7);
-  padding: 4px;
 }
 
 .top-left div {
   font-weight: bold;
 }
-/*
-.top-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}*/
 
 .top-left {
   height: 24px;
@@ -73,26 +61,14 @@ a:active {
 }
 
 .current-view {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 12px 6px;
   font-size: 1.2rem;
   background-color: rgba(255, 255, 255, 0.7);
-  padding: 4px;
+  padding: 12px;  
 }
 
-.current-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.current-right {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+.current-right div{
+  margin-right: 6px;
 }
 
 .temperature {
@@ -104,12 +80,8 @@ a:active {
   font-weight: bold;
 }
 
-.time {}
-
 .days-view {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+
 }
 
 .day-div {
@@ -118,10 +90,11 @@ a:active {
   height: 320px;
   /*border: 1px black solid;*/
   margin: 4px;
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 10px;
+}
+
+.day-div:hover {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .day-name {
@@ -179,11 +152,6 @@ a:active {
 }
 
 .footer {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
   background-color: rgba(255, 255, 255, 0.7);
   margin-top: 6px;
   padding: 4px;
@@ -191,69 +159,61 @@ a:active {
 }
 
 .footer div {
-  /*display: flex;*/
   margin: 0px;
   padding: 0px 12px;
 }
 
-/* Very small devices (phones, 400px and down) */
-@media only screen and (max-width: 500px) {
-  .top, 
-  .current-view {
-   /* min-width: 400px;*/
-    width: 360px; 
-    /*calc(100vw - 60px);*/
-  }
-  /* .current-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  } */
+/* positioning */
+body {
+  display: grid;
+justify-content: center;
+align-items: start;
+  max-height: 1000px;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .top, 
-  .current-view {
-   /* min-width: 400px;*/
-    width: 90vw; 
-    /*calc(100vw - 60px);*/
-  }
-  .day-div {
-    width: 160px;
-  }
-  /* .current-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  } */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  max-width: 800px;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .top, 
-  .current-view {
-    width: 580px;
-  }
+.current-view {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .top, 
-  .current-view {
-    width: 700px;
-  }
-  .footer {
-    flex-direction: row;
-  }
+.current-right {
+   display: flex;
+  align-items: center;
+  flex-wrap: wrap; 
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
+.days-view {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.day-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+}
+
 @media only screen and (min-width: 992px) {
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-
+  .top,
+  .current-view,
+  .days-view,
+  .footer {
+    padding: 20px;
+  }
 }

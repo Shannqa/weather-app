@@ -1,5 +1,5 @@
 // imports for webpack
-/*
+
 import sunnysrc0 from "./backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
 import sunnysrc1 from "./backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
 import partlyCloudysrc0 from "./backgrounds/adriel-kloppenburg-L_kKnLXNTBI-unsplash.jpg";
@@ -35,10 +35,9 @@ import icesrc0 from "./backgrounds/marcel-strauss-pWIYmeO0x-s-unsplash.jpg";
 import icesrc1 from "./backgrounds/tunafish-k4pewVTE9IA-unsplash.jpg";
 import thunderstormsrc0 from "./backgrounds/christian-spuller-Oaec-W0b2ss-unsplash.jpg";
 import thunderstormsrc1 from "./backgrounds/aditya-vyas-PzhmEp_aDU4-unsplash.jpg";
-*/
-// phone variables instead of imports
-// const sunnysrc0 = "src/kelly-sikkema-PqqQDpS6H6A-unsplash.jpg";
 
+// phone variables instead of imports
+/*
 const sunnysrc0 = "src/backgrounds/mujo-hasanovic-HaCBvAeOf-w-unsplash.jpg";
 const sunnysrc1 = "src/backgrounds/adriel-kloppenburg-IaSrOEEHU2w-unsplash.jpg";
 const partlyCloudysrc0 = "src/backgrounds/adriel-kloppenburg-L_kKnLXNTBI-unsplash.jpg";
@@ -74,7 +73,7 @@ const icesrc0 = "src/backgrounds/marcel-strauss-pWIYmeO0x-s-unsplash.jpg";
 const icesrc1 = "src/backgrounds/tunafish-k4pewVTE9IA-unsplash.jpg";
 const thunderstormsrc0 = "src/backgrounds/christian-spuller-Oaec-W0b2ss-unsplash.jpg";
 const thunderstormsrc1 = "src/backgrounds/aditya-vyas-PzhmEp_aDU4-unsplash.jpg";
-
+*/
 const backgrounds = {
   sunny: [
     {
