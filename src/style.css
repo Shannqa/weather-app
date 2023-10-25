@@ -86,10 +86,10 @@ body {
 }
 
 .day-div {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.7);
   width: 200px;
-  height: 400px;
-  border: 1px black solid;
+  height: 320px;
+  /*border: 1px black solid;*/
   margin: 4px;
   padding: 4px;
   display: flex;
@@ -150,6 +150,11 @@ body {
   top: 5px;
   right: 2px;
 }
+
+.footer {
+  display: flex;
+}
+
 
 
 

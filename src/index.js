@@ -105,6 +105,12 @@ function setBackground() {
   }
   console.log(backgroundImg);
   body.style.backgroundImage = "url(" + backgroundImg + ")";
+  
+    // add link and author to footer
+    const footerA = document.querySelector(".footer-photo a");
+    footerA.textContent = "a";
+    footerA.href = "b";
+  
 }
 
 const apiKey = config.API_KEY;
@@ -280,6 +286,19 @@ function createDom() {
   const cityName = document.createElement("div");
   const temp = document.createElement("div");
 
+  // footer
+  const footer = document.createElement("div");
+  const footerApi = document.createElement("div");
+  const footerApiSpan = document.createElement("span");
+  const footerApiA = document.createElement("a");
+  const footerCreated = document.createElement("div");
+  const footerCreatedSpan = document.createElement("span");
+  const footerCreatedA = document.createElement("a");
+
+  const footerPhoto = document.createElement("div");
+  const footerPhotoSpan = document.createElement("span");
+  const footerPhotoA = document.createElement("a");
+
   top.classList.add("top");
   topLeft.classList.add("top-left");
   topRight.classList.add("top-right");
@@ -300,7 +319,15 @@ function createDom() {
   });
   error.classList.add("error");
   error.textContent = "Error";
-
+  footerApiSpan.textContent = "Powered by ";
+  footerApiA.href = "https://www.weatherapi.com/";
+  footerApiA.textContent = "WeatherApi";
+  footerCreatedSpan.textContent = "Created by ";
+  footerCreatedA.href = "https://shannqa.github.io/homepage/index.html";
+  footerCreatedA.textContent = "Shannqa";
+  
+  
+  
   currentView.classList.add("current-view");
   currentLeft.classList.add("current-left");
   currentRight.classList.add("current-right");
@@ -309,6 +336,7 @@ function createDom() {
   localTime.classList.add("local-time");
   cityName.classList.add("city-name");
   temp.classList.add("temperature");
+  footerPhoto.classList.add("footer-photo");
 
   // 3-day forecast elements
   const daysView = document.createElement("div");
@@ -349,6 +377,7 @@ function createDom() {
     chanceRain.classList.add("chance-rain");
     sunrise.classList.add("sunrise");
     sunset.classList.add("sunset");
+    footer.classList.add("footer");
 
     dayDiv.appendChild(dayName);
     conditionDiv.appendChild(conditionIcon);
@@ -388,9 +417,22 @@ function createDom() {
   currentView.appendChild(currentLeft);
   currentView.appendChild(currentRight);
 
+  footerApi.appendChild(footerApiSpan);
+  footerApi.appendChild(footerApiA);
+  footerCreated.appendChild(footerCreatedSpan);
+  footerCreated.appendChild(footerCreatedA);
+  footerPhoto.appendChild(footerPhotoSpan);
+  footerPhoto.appendChild(footerPhotoA);
+
+
+  footer.appendChild(footerApi);
+  footer.appendChild(footerCreated);
+  footer.appendChild(footerPhoto);
+
   body.appendChild(top);
   body.appendChild(currentView);
   body.appendChild(daysView);
+  body.appendChild(footer);
 }
 
 function fillDom() {
@@ -436,7 +478,8 @@ function fillDom() {
     chanceRainText.textContent = `${futureWeather[i].daily_chance_of_rain}%`;
     sunriseText.textContent = futureWeather[i].sunrise;
     sunsetText.textContent = futureWeather[i].sunset;
-  }
+    
+}
 }
 
 createDom();
