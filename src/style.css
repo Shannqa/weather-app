@@ -13,16 +13,39 @@ body {
   background-size: cover;
 }
 
+a, a:visited {
+  color: #000000;
+}
+
+a:hover {
+  color: darkblue;
+}
+
+a:active {
+  color: blue;
+}
 
 .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 4px;
 }
 
 .top-left div {
   font-weight: bold;
+}
+/*
+.top-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}*/
+
+.top-left {
+  height: 24px;
 }
 
 .input-box {
@@ -41,11 +64,12 @@ body {
   background-color: palevioletred;
   grid-area: "error";
   display: none;
+  padding: 1px 4px;
 }
 
 .err-active {
   display: block !important;
-  position: absolute;
+  position: absolute
 }
 
 .current-view {
@@ -54,6 +78,8 @@ body {
   align-items: center;
   margin: 12px 6px;
   font-size: 1.2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 4px;
 }
 
 .current-left {
@@ -62,6 +88,7 @@ body {
   align-items: flex-start;
   flex-wrap: wrap;
 }
+
 .current-right {
   display: flex;
   align-items: center;
@@ -153,10 +180,21 @@ body {
 
 .footer {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-top: 6px;
+  padding: 4px;
+  font-size: 0.8rem;
 }
 
-
-
+.footer div {
+  /*display: flex;*/
+  margin: 0px;
+  padding: 0px 12px;
+}
 
 /* Very small devices (phones, 400px and down) */
 @media only screen and (max-width: 500px) {
@@ -204,6 +242,9 @@ body {
   .top, 
   .current-view {
     width: 700px;
+  }
+  .footer {
+    flex-direction: row;
   }
 }
 
