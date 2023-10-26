@@ -8,7 +8,6 @@ body {
   background: lightblue;
   background-position: center;
   background-size: auto;
-  height: 100%;
 }
 
 a, a:visited {
@@ -189,9 +188,9 @@ a:active {
 /* positioning */
 body {
   display: grid;
-justify-content: center;
-align-items: start;
-  max-height: 1000px;
+  justify-content: center;
+  align-content: space-between;
+  height: 100vh;
 }
 
 .top {
@@ -242,5 +241,11 @@ align-items: start;
   }
   .footer {
     font-size: 1rem;
+  }
+}
+
+@media only screen and (min-height: 1400px) {
+  body {
+    align-content: center;
   }
 }
