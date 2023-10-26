@@ -9,8 +9,7 @@ import arrow0 from "./south_FILL0_wght400_GRAD0_opsz24.svg";
 import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
 
 // phone import variables, comment them out on pc
-/*
-const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+/*const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
@@ -107,9 +106,9 @@ function setBackground() {
 }
 
 const apiKey = config.API_KEY;
-
-let newCity = "";
-let currentCity = "Warsaw";
+let tempType = "C";
+let newCity = "Warsaw";
+let currentCity = "";
 const weekdays = [
   "Sunday",
   "Monday",
@@ -184,6 +183,7 @@ async function getWeather(city) {
     );
     const data = await forecast.json();
     console.log(data);
+
     if (!forecast.ok) {
       errorMsg.classList.add("err-active");
       if (data.error.code === 1006) {
@@ -237,9 +237,14 @@ async function getWeather(city) {
     errorMsg.classList.remove("err-active");
 
     // console.log(futureWeather[0]);
+    if (city === newCity) {
+      currentCity = newCity;
+      newCity = "";
+    }
 
     fillDom();
     setBackground();
+
     console.log(currentWeather.condition_code);
     // errorMsg.classList.add("err-active");
     // throw new Error(forecast.status + " " + forecast.statusText + data.error.code);
@@ -265,6 +270,10 @@ function createDom() {
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
   const error = document.createElement("div");
+  const tempTypeDiv = document.createElement("div");
+  const tempSpanC = document.createElement("span");
+  const tempSpanF = document.createElement("span");
+  const tempSpanSlash = document.createElement("span");
 
   // today's forecast elements
   const currentView = document.createElement("div");
@@ -329,6 +338,25 @@ function createDom() {
   cityName.classList.add("city-name");
   temp.classList.add("temperature");
   footerPhoto.classList.add("footer-photo");
+  tempTypeDiv.classList.add("temp-type");
+  tempSpanC.textContent = "°C";
+  tempSpanF.textContent = "°F";
+  tempSpanSlash.textContent = "/";
+  tempSpanC.addEventListener("click", () => {
+    tempType = "C";
+    tempSpanC.classList.add("temp-active");
+    tempSpanC.classList.remove("temp-active");
+    console.log("curr " + currentCity);
+    console.log("new " + newCity);
+
+    getWeather(currentCity);
+  });
+  tempSpanF.addEventListener("click", () => {
+    tempType = "F";
+    tempSpanF.classList.add("temp-active");
+    tempSpanC.classList.remove("temp-active");
+    getWeather(currentCity);
+  });
 
   // 3-day forecast elements
   const daysView = document.createElement("div");
@@ -397,6 +425,12 @@ function createDom() {
   topRight.appendChild(inputBox);
   topRight.appendChild(inputBtn);
   topRight.appendChild(error);
+
+  tempTypeDiv.appendChild(tempSpanC);
+  tempTypeDiv.appendChild(tempSpanSlash);
+  tempTypeDiv.appendChild(tempSpanF);
+
+  topRight.appendChild(tempTypeDiv);
   top.appendChild(topLeft);
   top.appendChild(topRight);
 
@@ -444,7 +478,12 @@ function fillDom() {
   currConIcon.src = `https:${currentWeather.condition_icon}`;
 
   cityName.textContent = currentWeather.city;
-  temp.textContent = `${currentWeather.tempC} °C`;
+  if (tempType === "F") {
+    temp.textContent = `${currentWeather.tempF} °F`;
+  } else {
+    temp.textContent = `${currentWeather.tempC} °C`;
+  }
+  console.log(tempType);
 
   // weather forecast for 3 days - fill with fetched data
   for (let i = 0; i < 3; i++) {
@@ -464,8 +503,14 @@ function fillDom() {
     }
 
     conditionIcon.src = `https:${futureWeather[i].condition_icon}`;
-    maxT.textContent = `${futureWeather[i].maxtemp_c} °C`;
-    minT.textContent = `${futureWeather[i].mintemp_c} °C`;
+
+    if (tempType === "F") {
+      maxT.textContent = `${futureWeather[i].maxtemp_f} °F`;
+      minT.textContent = `${futureWeather[i].mintemp_f} °F`;
+    } else {
+      maxT.textContent = `${futureWeather[i].maxtemp_c} °C`;
+      minT.textContent = `${futureWeather[i].mintemp_c} °C`;
+    }
     chanceRainText.textContent = `${futureWeather[i].daily_chance_of_rain}%`;
     sunriseText.textContent = futureWeather[i].sunrise;
     sunsetText.textContent = futureWeather[i].sunset;
@@ -473,7 +518,7 @@ function fillDom() {
 }
 
 createDom();
-getWeather(currentCity);
+getWeather(newCity);
 
 /*
 Future weather - 3 days
