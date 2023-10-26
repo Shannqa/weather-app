@@ -8,7 +8,7 @@ body {
   background: lightblue;
   background-position: center;
   background-size: auto;
-  height: 100vh;
+  height: 100%;
 }
 
 a, a:visited {
@@ -30,10 +30,18 @@ a:active {
 
 .top-left div {
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .top-left {
-  height: 24px;
+  display: flex;
+  align-items: center;
+}
+.top-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .input-box {
@@ -60,6 +68,22 @@ a:active {
   position: absolute
 }
 
+.temp-type span:nth-child(1),
+.temp-type span:nth-child(3) {
+  margin: 0px 5px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.temp-type span:nth-child(1):hover,
+.temp-type span:nth-child(3):hover {
+  color: darkblue;
+}
+
+.temp-active {
+  font-weight: bold;
+}
+
 .current-view {
   margin: 12px 6px;
   font-size: 1.2rem;
@@ -78,10 +102,6 @@ a:active {
 .city-name {
   font-size: 1.6rem;
   font-weight: bold;
-}
-
-.days-view {
-
 }
 
 .day-div {
@@ -207,6 +227,7 @@ align-items: start;
   align-items: center;
   justify-content: center;
   max-width: 800px;
+  padding: 12px;
 }
 
 @media only screen and (min-width: 992px) {
@@ -215,5 +236,8 @@ align-items: start;
   .days-view,
   .footer {
     padding: 20px;
+  }
+  .footer {
+    font-size: 1rem;
   }
 }

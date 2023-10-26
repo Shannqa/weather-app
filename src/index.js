@@ -342,6 +342,7 @@ function createDom() {
   tempSpanC.textContent = "°C";
   tempSpanF.textContent = "°F";
   tempSpanSlash.textContent = "/";
+  tempSpanC.classList.add("temp-active");
   tempSpanC.addEventListener("click", () => {
     tempType = "C";
     tempSpanC.classList.add("temp-active");
