@@ -1,19 +1,19 @@
 import config from "../config.js";
 import backgrounds from "./background.js";
 // pc import variables, comment them out on mobile
-import "./style.css";
+/*import "./style.css";
 import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 import sun0 from "./wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 import sun1 from "./wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 import arrow0 from "./south_FILL0_wght400_GRAD0_opsz24.svg";
-import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
+import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";*/
 
 // phone import variables, comment them out on pc
-/*const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
-const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";*/
+const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
 
 function setBackground() {
   const body = document.querySelector("body");
@@ -469,13 +469,19 @@ function fillDom() {
   const localTime = document.querySelector(".local-time");
 
   const todayWeek = new Date(`${currentWeather.time}`);
-  // month - from 0 to 11, so need to add +1
+  
+  // month - from 0 to 11, so need to add +1. Day, month, hours, minutes - if the number is less than 10, add a 0 to the number, so it's 01 instead of 1
+  let day  = todayWeek.getDate() < 10 ? "0" : "" + todayWeek.getDate();
+  let month = todayWeek.getMonth() < 10 ? "0" : "" + todayWeek.getMonth();
+  
   today.textContent = `Today is ${
     weekdays[todayWeek.getDay()]
-  }, ${todayWeek.getDate()}.${
-    todayWeek.getMonth() + 1
-  }.${todayWeek.getFullYear()}. `;
-  localTime.textContent = `Local time: ${todayWeek.getHours()}:${todayWeek.getMinutes()}.`;
+  }, ${day}.${month + 1}.${todayWeek.getFullYear()}. `;
+  
+  let hours = todayWeek.getHours() < 10 ? "0" : "" + todayWeek.getHours();
+  let minutes = todayWeek.getMinutes() < 10 ? "0" : "" + todayWeek.getMinutes();
+  
+  localTime.textContent = `Local time: ${hours}:${minutes}.`;
   currConIcon.src = `https:${currentWeather.condition_icon}`;
 
   cityName.textContent = currentWeather.city;
