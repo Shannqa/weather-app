@@ -1,19 +1,19 @@
 import config from "../config.js";
 import backgrounds from "./background.js";
 // pc import variables, comment them out on mobile
-/*import "./style.css";
+import "./style.css";
 import drop from "./water_drop_FILL0_wght400_GRAD0_opsz24.svg";
 import sun0 from "./wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
 import sun1 from "./wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
 import arrow0 from "./south_FILL0_wght400_GRAD0_opsz24.svg";
-import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";*/
+import arrow1 from "./north_FILL0_wght400_GRAD0_opsz24.svg";
 
 // phone import variables, comment them out on pc
-const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
-const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
-const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
-const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
-const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
+// const drop = "src/water_drop_FILL0_wght400_GRAD0_opsz24.svg";
+// const sun0 = "/src/wb_twilight_FILL0_wght400_GRAD0_opsz24.svg";
+// const sun1 = "/src/wb_twilight_FILL1_wght400_GRAD0_opsz24.svg";
+// const arrow0 = "/src/south_FILL0_wght400_GRAD0_opsz24.svg";
+// const arrow1 = "/src/north_FILL0_wght400_GRAD0_opsz24.svg";
 
 function setBackground() {
   const body = document.querySelector("body");
@@ -186,6 +186,7 @@ async function getWeather(city) {
 
     if (!forecast.ok) {
       errorMsg.classList.add("err-active");
+      setTimeout(() => errorMsg.classList.remove("err-active"), 5000);
       if (data.error.code === 1006) {
         errorMsg.textContent = "City not found";
         throw new Error(
@@ -267,6 +268,7 @@ function createDom() {
   const siteName = document.createElement("div");
   const topRight = document.createElement("div");
   const inputLabel = document.createElement("label");
+  const inputErrorBox = document.createElement("div");
   const inputBox = document.createElement("input");
   const inputBtn = document.createElement("button");
   const error = document.createElement("div");
@@ -307,6 +309,7 @@ function createDom() {
   inputBox.classList.add("input-box");
   inputBtn.classList.add("input-btn");
   siteName.textContent = "Weather App";
+  inputErrorBox.classList.add(".input-error");
   inputBox.setAttribute("id", "input");
   inputBox.setAttribute("placeholder", "Enter city name");
   inputBtn.setAttribute("for", "input");
@@ -423,9 +426,10 @@ function createDom() {
 
   topLeft.appendChild(siteName);
   topRight.appendChild(inputLabel);
-  topRight.appendChild(inputBox);
+  topRight.appendChild(inputErrorBox);
+  inputErrorBox.appendChild(inputBox);
+  inputErrorBox.appendChild(error);
   topRight.appendChild(inputBtn);
-  topRight.appendChild(error);
 
   tempTypeDiv.appendChild(tempSpanC);
   tempTypeDiv.appendChild(tempSpanSlash);
@@ -469,18 +473,18 @@ function fillDom() {
   const localTime = document.querySelector(".local-time");
 
   const todayWeek = new Date(`${currentWeather.time}`);
-  
+
   // month - from 0 to 11, so need to add +1. Day, month, hours, minutes - if the number is less than 10, add a 0 to the number, so it's 01 instead of 1
-  let day  = todayWeek.getDate() < 10 ? "0" : "" + todayWeek.getDate();
+  let day = todayWeek.getDate() < 10 ? "0" : "" + todayWeek.getDate();
   let month = todayWeek.getMonth() < 10 ? "0" : "" + todayWeek.getMonth();
-  
-  today.textContent = `Today is ${
-    weekdays[todayWeek.getDay()]
-  }, ${day}.${month + 1}.${todayWeek.getFullYear()}. `;
-  
+
+  today.textContent = `Today is ${weekdays[todayWeek.getDay()]}, ${day}.${
+    month + 1
+  }.${todayWeek.getFullYear()}. `;
+
   let hours = todayWeek.getHours() < 10 ? "0" : "" + todayWeek.getHours();
   let minutes = todayWeek.getMinutes() < 10 ? "0" : "" + todayWeek.getMinutes();
-  
+
   localTime.textContent = `Local time: ${hours}:${minutes}.`;
   currConIcon.src = `https:${currentWeather.condition_icon}`;
 
@@ -526,38 +530,3 @@ function fillDom() {
 
 createDom();
 getWeather(newCity);
-
-/*
-Future weather - 3 days
-3 columns, each of them having
-day
-temp
-temp at night?
-condition
-img of condition
-rain chance?
-*/
-
-/* 
-input city name
-input field and ok button
-once user clicks ok/presses enter, change the following:
-newCity = entered value
-fetch from api - current weather and future weather
-in case of error: show a message to try again. different error when the city doesnt exist, different in case of a network error
-in case it works:
-currentCity = newCity
-fill the dom with fetched values
-
-*/
-
-/*
-l
-Search:
-add event listener for enter in input box
-error: City not found.
-Error, please try again.
-
-problem with hours, minutes and months - it shows 1 number instead of 01
-different errors for different codes
-*/

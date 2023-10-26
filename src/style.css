@@ -56,16 +56,19 @@ a:active {
   margin: 4px;
 }
 
+.input-error {
+  position: relative;
+}
+
 .error {
   background-color: palevioletred;
-  grid-area: "error";
   display: none;
   padding: 1px 4px;
 }
 
 .err-active {
   display: block !important;
-  position: absolute
+  position: absolute;
 }
 
 .temp-type span:nth-child(1),
