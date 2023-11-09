@@ -22,7 +22,6 @@ function setBackground() {
   if (code === 1000) {
     // sunny
     back = backgrounds.sunny;
-    console.log(backgroundImg);
   } else if (code === 1003) {
     // partly cloudy
     back = backgrounds.partlyCloudy;
@@ -475,12 +474,13 @@ function fillDom() {
   const todayWeek = new Date(`${currentWeather.time}`);
 
   // month - from 0 to 11, so need to add +1. Day, month, hours, minutes - if the number is less than 10, add a 0 to the number, so it's 01 instead of 1
-  let day = todayWeek.getDate() < 10 ? "0" : "" + todayWeek.getDate();
-  let month = todayWeek.getMonth() < 10 ? "0" : "" + todayWeek.getMonth();
-
-  today.textContent = `Today is ${weekdays[todayWeek.getDay()]}, ${day}.${
-    month + 1
-  }.${todayWeek.getFullYear()}. `;
+  let dayDate = todayWeek.getDate();
+  let monthDate = Number(todayWeek.getMonth()) + 1;
+  let day = dayDate < 10 ? "0" + dayDate : "" + dayDate;
+  let month = monthDate < 10 ? "0" + monthDate : "" + monthDate;
+  today.textContent = `Today is ${
+    weekdays[todayWeek.getDay()]
+  }, ${day}.${month}.${todayWeek.getFullYear()}. `;
 
   let hours = todayWeek.getHours() < 10 ? "0" : "" + todayWeek.getHours();
   let minutes = todayWeek.getMinutes() < 10 ? "0" : "" + todayWeek.getMinutes();
